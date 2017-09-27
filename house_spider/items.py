@@ -20,3 +20,27 @@ class HouseSpiderItem(scrapy.Item):
     totalprice = scrapy.Field()
     tag = scrapy.Field()
     year = scrapy.Field()
+
+    _id = scrapy.Field()
+    priceLog = scrapy.Field()
+
+    def parse_self_to_dict(self):
+        return {"title": self["title"],
+                "size": self["size"],
+                "location_district": self["location_district"],
+                "location_area": self["location_area"],
+                "location_detail": self["location_detail"],
+                "year": self["year"]}
+
+    def parse_dict_to_self(self, dict):
+        self["title"] = dict["title"]
+        self["size"] = dict["size"]
+        self["location_district"] = dict["location_district"]
+        self["location_area"] = dict["location_area"]
+        self["location_detail"] = dict["location_detail"]
+        self["unitprice"] = dict["unitprice"]
+        self["totalprice"] = dict["totalprice"]
+        self["tag"] = dict["tag"]
+        self["year"] = dict["year"]
+        self["_id"] = dict["_id"]
+        self["priceLog"] = dict["priceLog"] if dict.has_key("priceLog") else None
